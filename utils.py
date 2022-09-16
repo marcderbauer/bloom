@@ -4,7 +4,7 @@ import glob
 import os
 import unicodedata
 import string
-import random
+from random import shuffle
 import time
 import math
 
@@ -32,3 +32,24 @@ def timeSince(since):
     m = math.floor(s / 60)
     s -= m * 60
     return '%dm %ds' % (m, s)
+
+def save_file(filename, list):
+    """
+    Quick wrapper around the write function
+    """
+    with open(filename, "w") as f:
+            for line in list:
+                f.write(f"{line}\n")
+
+def split_dset(dset, split, shuffle_dset=True):
+    # TODO: Included in data class now, can be removed soon.
+    """
+    Takes percentage that each split is supposed to be at and splits the dataset accodringly.
+    input percentages must add to one
+    """
+    if shuffle_dset:
+        shuffle(dset)
+    split = round(split * len(dset))
+    tr = dset[:split]
+    d = dset[split:]
+    return tr, d
