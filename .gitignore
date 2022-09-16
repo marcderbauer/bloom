@@ -1,0 +1,7 @@
+.venv/
+.vscode/
+models/
+client_secret_*
+__pycache__
+.DS_Store
+.env
