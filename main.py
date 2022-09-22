@@ -1,7 +1,7 @@
 from datasets import load_dataset, load_metric
 from transformers import BloomTokenizerFast, BloomForCausalLM, Trainer, TrainingArguments
 import torch
-import numpy as np
+import os
 
 
 """
@@ -9,23 +9,19 @@ References:
 https://colab.research.google.com/github/huggingface/notebooks/blob/master/examples/language_modeling.ipynb
 https://huggingface.co/docs/transformers/model_doc/bloom
 """
+# Use MPS if available
+mps_device = torch.device("mps")
+access_token=os.environ.get("HF_TOKEN")
+output_dir = "models"
 
 tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-560m")
-dataset = load_dataset("text", data_files={"train": "data/train.txt", "test": "data/test.txt"})
-metric = load_metric("accuracy")
+dataset = load_dataset("text", data_files={"train": "data/combined_train.txt", "test": "data/combined_eval.txt"})
 
-
-# Use MPS if available
-#mps_device = torch.device("mps")
-
-
-def compute_metrics(eval_pred):
-    logits, labels = eval_pred
-    predictions = np.argmax(logits, axis=-1)
-    return metric.compute(predictions=predictions, references=labels)
 
 def tokenize_function(examples):
-    return tokenizer(examples["text"])
+    examples["text"] = [example + " </s>" for example in examples["text"]] # Append EOS
+    tokenized = tokenizer(examples["text"], padding=True, pad_to_multiple_of=8)
+    return tokenized
 
 def group_texts(examples):
     # Concatenate all texts.
@@ -43,9 +39,10 @@ def group_texts(examples):
     return result
 
 
-# Tokenize texts and then groupt them according to block_size
+# Tokenize texts and then group them according to block_size
 # block_size = tokenizer.model_max_length -> 1000000000000000019884624838656 -- too much
 block_size = 128
+
 tokenized = dataset.map(tokenize_function, batched=True, num_proc=4, remove_columns=["text"])
 
 lm_datasets = tokenized.map(
@@ -62,15 +59,17 @@ print(tokenizer.decode(lm_datasets["train"][5]["input_ids"]))
 model_checkpoint = "bigscience/bloom-560m"
 model_name = model_checkpoint.split("/")[-1]
 model = BloomForCausalLM.from_pretrained(model_checkpoint)
-#model.to(mps_device)
+model.to(mps_device)
 
 training_args = TrainingArguments(
     f"{model_name}-vice-headlines",
     evaluation_strategy = "epoch",
     learning_rate=2e-5,
     weight_decay=0.01,
-    push_to_hub=False,
-    num_train_epochs=3
+    #push_to_hub=True,
+    #push_to_hub_token=access_token,
+    num_train_epochs=10,
+    report_to="wandb"
 )
 
 trainer = Trainer(
@@ -78,9 +77,8 @@ trainer = Trainer(
     args=training_args,
     train_dataset=lm_datasets["train"],
     eval_dataset=lm_datasets["test"]
-    #compute_metrics=compute_metrics
 )
 
 trainer.train()
-model.save_pretrained("models")
+model.save_pretrained(output_dir)
 print(trainer)
