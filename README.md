@@ -2,13 +2,20 @@
 [![Try it here](https://img.shields.io/badge/%F0%9F%A4%97-Try%20it%20here!-yellow)](https://huggingface.co/spaces/marcderbauer/vice-headlines)
   
 ## :runner: Quickstart
-  <b> not implemented yet :disappointed_relieved:</b>  
   If you can't be bothered to read all of this, you can just run
   ```
   chmod +x run.sh     # Make run.sh executable
   ./run.sh            # Run the program
   ```
-
+  This will:
+  <ol>
+    <li>Install all the required libraries
+    <li>Run 3 epochs of training
+    <li>Generate an inference
+  <ol>  
+  
+  You can then generate more inferences as described [below](#moyai-inference).  
+  
 ## :snowflake: Context
 This project originally started out as an RNN I wanted to implement in Pytorch. 
 I had difficulties getting the model to create a coherent output. As I lacked reference values for training, I decided to finetune an existing model -- BLOOM. I hoped to learn more about the text-generation process from a top-down perspective, and to gather reference values for training in a "best-case" scenario.    
