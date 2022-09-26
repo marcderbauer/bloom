@@ -12,7 +12,8 @@
 ## :snowflake: Context
 This project originally started out as an RNN, which I wanted to implement in Pytorch. 
 I had difficulties getting the model to create a coherent output. As I lacked reference values for training, I decided to finetune an existing model -- BLOOM. I hoped to learn more about the text-generation process from a top-down perspective, and to gather reference values for training in a "best-case" scenario.    
-
+  
+  
 ## :robot: Setup
 #### 1. Install the required dependencies  
     pip install -r requirements.txt
@@ -32,11 +33,13 @@ I had difficulties getting the model to create a coherent output. As I lacked re
     
   For in-depth guidance, please refer to this excellent [HubSpot Article](https://blog.hubspot.com/website/how-to-get-youtube-api-key).   
   
+  
 ## :bar_chart: Data
 > If you decided to use the data included in the repository, you can skip this section.  
 
 #### 1. Collecting the data  
-  Assuming you setup the YouTube API correctly, all you need to do is run the [youtube/query_api.py](youtube/query_api.py).  
+  Assuming you setup the YouTube API correctly, all you need to do is run the [youtube/query_api.py](youtube/query_api.py). 
+  It requires the name of your [client_secrets_file](https://github.com/marcderbauer/bloom/blob/27b80f7fbe63f463ca9941cb23454d78e55fed4b/youtube/query_api.py#L24).
   You need to supply the requested channel's playlistId as an argument when launching the program.  
   For VICE and VICE News the respective commands are:
   ```
@@ -59,11 +62,23 @@ I had difficulties getting the model to create a coherent output. As I lacked re
   ```
     
 ## :chart_with_downwards_trend: Training
-- How to run this, maybe some hyperparams
+  Training can easily be run by executing the <code>main.py</code>.  
+  If you have [Weights & Biases](https://wandb.ai) set up, you can uncomment the following [line](https://github.com/marcderbauer/bloom/blob/27b80f7fbe63f463ca9941cb23454d78e55fed4b/main.py#L72) to track your training:
+  ```
+  report_to="wandb"
+  ```
 
 ## :moyai: Inference
-- How to use inference. Also add argparse
+  Inference can be run by running the <code>inference.py</code> with the prompt as argument, e.g.:
+  ```
+  python3 inference.py Why
+  
+  Output:
+  > Why Mexican Cartels Build the World's Weirdest BMX Plane 
+  ```
+  You can play around with some of the hyperparameters within the program, such as <code>temperature</code> and <code>top_p</code>.  
+  Huggingface made a great [tutorial](https://huggingface.co/blog/how-to-generate) on different generation strategies, where each parameter is explained.
 
 ## :recycle: Conclusion
-- How did this help me with RNN
-- What did I learn in General?
+  This project has been very insightful in gaining an understanding of text-generation from a top-down perspective. While implementing this project as a PyTorch RNN I mostly scrambled around without having much of an understanding of what I was doing.  
+  By fine-tuning BLOOM, I learned how to fine-tune an existing model, how to source data, how to pre-process it correctly and I how to host the resulting model on [Hugging Face Hub](https://huggingface.co/spaces/marcderbauer/vice-headlines) with [Gradio](https://gradio.app/).
