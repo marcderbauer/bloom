@@ -49,5 +49,5 @@ sample_output = model.generate(
     repetition_penalty=args.rp
 )
 
-print(f"\ntemp={args.temp}; k={args.top_k}, p={args.top_p}, rep={args.rp}:\n" + 100 * '-')
+print(f"\ntemp={args.temp}; k={args.top_k}, p={args.top_p}, rep={args.rp}\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
