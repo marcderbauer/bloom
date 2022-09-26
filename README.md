@@ -67,9 +67,9 @@ I had difficulties getting the model to create a coherent output. As I lacked re
     
 ## :chart_with_downwards_trend: Training
   Training can easily be run by executing the <code>main.py</code>.  
-  If you have [Weights & Biases](https://wandb.ai) set up, you can uncomment the following [line](https://github.com/marcderbauer/bloom/blob/27b80f7fbe63f463ca9941cb23454d78e55fed4b/main.py#L72) to track your training:
+  If you have [Weights & Biases](https://wandb.ai) set up, you add a flag to activate it as such
   ```
-  report_to="wandb"
+  python3 main.py --wandb
   ```
 
 ## :moyai: Inference
