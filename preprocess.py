@@ -42,6 +42,8 @@ def filter_regex(lines, min_words = 3):
             continue
         processed.append(line)
     print(f"Processed & filtered list with regex. Removed {before - len(processed)} items.")
+    #TODO: Ensure that sentences don't have a space at the end before \n
+    
     return processed
 
 def main(filename, split=0.8):
@@ -57,8 +59,8 @@ def main(filename, split=0.8):
     base = filename.split(".txt")[0]
     if split:
         train, dev = split_dset(filtered, split)
-        save_file(base + "_train.txt", train)
-        save_file(base + "_eval.txt", dev)
+        save_file("train.txt", train)
+        save_file("eval.txt", dev)
     else:
         save_file(base + "_processed.txt")
     
