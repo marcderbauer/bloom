@@ -15,7 +15,7 @@ I had difficulties getting the model to create a coherent output. As I lacked re
   
   
 ## :robot: Setup
-#### 1. Install the required dependencies  
+#### 1. Install the Required Dependencies  
     pip install -r requirements.txt
 #### 2. Setup YouTube API
   > :heavy_exclamation_mark: This step is only necessary if you want to source the data yourself:heavy_exclamation_mark:   
@@ -35,9 +35,9 @@ I had difficulties getting the model to create a coherent output. As I lacked re
   
   
 ## :bar_chart: Data
-> If you decided to use the data included in the repository, you can skip this section.  
+> :heavy_exclamation_mark:If you decided to use the data included in the repository, you can skip this section.:heavy_exclamation_mark:  
 
-#### 1. Collecting the data  
+#### 1. Collecting the Data  
   Assuming you setup the YouTube API correctly, all you need to do is run the [youtube/query_api.py](youtube/query_api.py). 
   It requires the name of your [client_secrets_file](https://github.com/marcderbauer/bloom/blob/27b80f7fbe63f463ca9941cb23454d78e55fed4b/youtube/query_api.py#L24).
   You need to supply the requested channel's playlistId as an argument when launching the program.  
@@ -54,7 +54,7 @@ I had difficulties getting the model to create a coherent output. As I lacked re
     <li>Copy everything after <code>list=</code> from the link
   </ol>
   
-#### 2. Cleaning the data  
+#### 2. Cleaning the Data  
   In order to clean the data, you just need to run the [preprocess.py](preprocess.py).
   Assuming the file to process is called <code>vice.txt</code>:
   ```
