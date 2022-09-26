@@ -14,7 +14,7 @@ import argparse
 #----------------------------------------------------------------------------
 #                               ARGPARSE
 #----------------------------------------------------------------------------
-parser = argparse.ArgumentParser(description='Generate inference for a given prompt')
+parser = argparse.ArgumentParser(description='Download youtube playlists')
 parser.add_argument("playlist_ids", type=str, nargs="?", default="UUn8zNIfYAQNdrFRrr8oibKw PLw613M86o5o7q1cjb26MfCgdxJtshvRZ-", help="The ids of the playlists to download")
 parser.add_argument("--verbose", default=False, action='store_true')
 args = parser.parse_args()

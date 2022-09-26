@@ -12,7 +12,7 @@ import argparse
 #                               ARGPARSE
 #----------------------------------------------------------------------------
 parser = argparse.ArgumentParser(description='Clean a file to remove duplicates and foreign sentences')
-parser.add_argument("filename", type=str, nargs=1, default="data/combined.txt", help="Path of the input file.")
+parser.add_argument("filename", type=str, default="data/combined.txt", help="Path of the input file.")
 parser.add_argument("--filter_lang", metavar="lang", type=str, default="en", help="Filters all lines not deemed to be of the given language.")
 parser.add_argument("--min_distance", type=int, default=3, help="Filters out all lines with a Levenshtein distance up to this value")
 parser.add_argument("--min_words", type=int, default=3, help="Filter all lines which have less than min_words.")
@@ -21,12 +21,12 @@ parser.add_argument("--overwrite", default=False, action='store_true', help="Ove
 
 args = parser.parse_args()
 
-
+print(args.filename)
 #----------------------------------------------------------------------------
 #                               FILTERS
 #----------------------------------------------------------------------------
 
-def filter_language(lines, language=args.lang):
+def filter_language(lines, language=args.filter_lang):
     before = len(lines)
     filtered = list(filter(lambda x: detect(x) == language, lines))
     print(f"Filtered list to only include lang: {language}. Removed {before - len(filtered)} items.")
@@ -83,10 +83,10 @@ def main():
         train, dev = split_dset(filtered, args.split)
         if args.overwrite:
             save_file("train.txt", train)
-            save_file("eval.txt", dev)
+            save_file("test.txt", dev)
         else:
             save_file(base + "_train.txt", train)
-            save_file(base +"_eval.txt", dev)
+            save_file(base +"_test.txt", dev)
     else:
         if args.overwrite:
             save_file(args.filename)

@@ -37,6 +37,10 @@ dataset = load_dataset("text", data_files={"train": args.train, "test": args.tes
 model = BloomForCausalLM.from_pretrained(args.checkpoint)
 
 
+#----------------------------------------------------------------------------
+#                               FUNCTIONS
+#----------------------------------------------------------------------------
+
 def tokenize_function(examples):
     examples["text"] = [example + " </s>" for example in examples["text"]] # Append EOS
     tokenized = tokenizer(examples["text"], padding=True, pad_to_multiple_of=8)
@@ -57,6 +61,10 @@ def group_texts(examples):
     }
     result["labels"] = result["input_ids"].copy()
     return result
+
+#----------------------------------------------------------------------------
+#                               MAIN
+#----------------------------------------------------------------------------
 
 def main():
     # Process dataset
@@ -83,6 +91,8 @@ def main():
     print("Finished training")
     model.save_pretrained(output_dir)
     print(trainer)
+
+
 
 if __name__ == "__main__":
     main()
