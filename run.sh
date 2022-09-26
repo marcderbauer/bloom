@@ -6,7 +6,7 @@ echo"Finished installing requirements"
 sleep(3)
 
 echo"Starting training. This may take a while..."
-python3 main.py
+python3 main.py --epochs 3
 echo"Finished training"
 sleep(3)
 
