@@ -2,6 +2,7 @@ from transformers import BloomTokenizerFast, BloomForCausalLM
 import torch as pt
 import argparse
 import os
+from titlecase import titlecase
 
 #----------------------------------------------------------------------------
 #                               ARGPARSE
@@ -68,4 +69,4 @@ sample_output = model.generate(
 )
 
 print(f"\ntemp={args.temp}; k={args.top_k}, p={args.top_p}, rep={args.rp}\n" + 100 * '-')
-print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
+print(titlecase(tokenizer.decode(sample_output[0], skip_special_tokens=True)))
