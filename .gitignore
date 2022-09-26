@@ -6,3 +6,7 @@ __pycache__
 .DS_Store
 .env
 youtube/query_api.py
+bloom-560m-vice-headlines
+bloom-560m-vice-headlines_backup
+data/original/
+wandb
