@@ -2,20 +2,21 @@
 [![Try it here](https://img.shields.io/badge/%F0%9F%A4%97-Try%20it%20here!-yellow)](https://huggingface.co/spaces/marcderbauer/vice-headlines)
   
 ## :runner: Quickstart
-  If you can't be bothered to read all of this, you can just run
-  ```
-  chmod +x run.sh     # Make run.sh executable
-  ./run.sh            # Run the program
-  ```
-  This will:
-  <ol>
-    <li>Install all the required libraries
-    <li>Run 3 epochs of training
-    <li>Generate an inference
-  <ol>  
+If you can't be bothered to read all of this, you can just run
+```
+chmod +x run.sh     # Make run.sh executable
+./run.sh            # Run the program
+```
+This will:
+<ol>
+  <li>Install all the required libraries
+  <li>Run three epochs of training
+  <li>Generate an inference
+</ol>  
   
-  You can then generate more inferences as described [below](#moyai-inference).  
-  
+You can then generate more inferences as described [below](#moyai-inference).  
+<br>
+
 ## :snowflake: Context
 This project originally started out as an RNN I wanted to implement in Pytorch. 
 I had difficulties getting the model to create a coherent output. As I lacked reference values for training, I decided to finetune an existing model -- BLOOM. I hoped to learn more about the text-generation process from a top-down perspective, and to gather reference values for training in a "best-case" scenario.    
@@ -45,7 +46,7 @@ I had difficulties getting the model to create a coherent output. As I lacked re
 > :heavy_exclamation_mark:If you decided to use the data included in the repository, you can skip this section.:heavy_exclamation_mark:  
 
 #### 1. Collecting the Data  
-  Assuming you setup the YouTube API correctly, all you need to do is run the [youtube/query_api.py](youtube/query_api.py). 
+  Assuming you [setup the YouTube API](#2-setup-youtube-api) correctly, all you need to do is run the [youtube/query_api.py](youtube/query_api.py). 
   It requires the name of your [client_secrets_file](https://github.com/marcderbauer/bloom/blob/27b80f7fbe63f463ca9941cb23454d78e55fed4b/youtube/query_api.py#L24).
   You need to supply the requested channel's playlistId as an argument when launching the program. It is possible to supply multiple playlistIds at once by seperating them with a space.    
   
@@ -74,7 +75,7 @@ I had difficulties getting the model to create a coherent output. As I lacked re
     
 ## :chart_with_downwards_trend: Training
   Training can easily be run by executing the <code>main.py</code>.  
-  If you have [Weights & Biases](https://wandb.ai) set up, you add a flag to activate it as such
+  If you have [Weights & Biases](https://wandb.ai) set up, you add a flag to activate it as such:
   ```
   python3 main.py --wandb
   ```
