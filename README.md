@@ -1,6 +1,10 @@
 # Generate Vice Headlines with Bloom
 [![Try it here](https://img.shields.io/badge/%F0%9F%A4%97-Try%20it%20here!-yellow)](https://huggingface.co/spaces/marcderbauer/vice-headlines)
   
+  
+## :exclamation: Requirements
+Your Python installation needs to be version <code>3.8</code> or higher.
+
 ## :runner: Quickstart
 If you can't be bothered to read all of this, you can just run
 ```
